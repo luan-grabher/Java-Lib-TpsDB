@@ -80,7 +80,6 @@ public class Tps_Model {
                     contratos.add(contrato);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println(e.getMessage());
                 }
 
             }
