@@ -40,6 +40,7 @@ public class Tps_Model {
                 });
             });
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return returned;
