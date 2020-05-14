@@ -25,3 +25,4 @@ hs_err_pid*
 /Java-Lib-TpsDB/build/
 /nbproject/private/
 /build/
+/dist/
