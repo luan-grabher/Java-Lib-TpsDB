@@ -20,7 +20,7 @@ public class Processo {
         List<Associado> associados = Tps_Model.getAssociados();
         List<tpsdb.Model.Entities.Processo> processos = Tps_Model.getProcessos();
 
-        Long advogado = Long.valueOf(19);
+        Long advogado = Long.valueOf(9);
 
         //Lista processos do advogado escolhido
         List<tpsdb.Model.Entities.Processo> advogadoProcessos = processos.stream().filter(p -> Objects.equals(p.getAdvogado(), advogado)).collect(Collectors.toList());
@@ -37,13 +37,16 @@ public class Processo {
         //Ordena por ordem alfabetica
         processosAssociados.sort(Comparator.comparing(Associado::getNome));
         
+        System.out.println("Advogado Nro " + advogado);
+        System.out.println("Nome;CPF;RG;Data Nascimento");
+        
         for (Associado associado : processosAssociados) {
             StringBuilder out = new StringBuilder(associado.getNome());
-            out.append(" | ");
+            out.append(";");
             out.append(associado.getCpf());
-            out.append(" | ");
+            out.append(";");
             out.append(associado.getRg());
-            out.append(" | ");
+            out.append(";");
             out.append(associado.getDtNascimento());
             
             System.out.println(out.toString());
