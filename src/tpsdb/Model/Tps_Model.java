@@ -59,6 +59,8 @@ public class Tps_Model {
 
     public static void setContratos() {
         try {
+            contratos.clear();
+            
             String tableName = "ASSEMPRE";
 
             List<List<Object>> rows = getTableData(tableName);
@@ -89,6 +91,7 @@ public class Tps_Model {
 
     public static void setAssociados() {
         try {
+            associados.clear();
             String tableName = "Associad";
 
             List<List<Object>> rows = getTableData(tableName);
@@ -128,6 +131,7 @@ public class Tps_Model {
 
     public static void setProcessos() {
         try {
+            processos.clear();
             String tableName = "PROCESSO";
 
             List<List<Object>> rows = getTableData(tableName);
