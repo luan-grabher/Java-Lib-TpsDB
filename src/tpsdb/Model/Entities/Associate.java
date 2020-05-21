@@ -1,6 +1,6 @@
 package tpsdb.Model.Entities;
 
-public class Associado {
+public class Associate {
 
     //Matriculas
     private final Long codigoAssociado;
@@ -23,7 +23,7 @@ public class Associado {
     private String rg;
     private String dtNascimento;
 
-    public Associado(Long codigoAssociado, String matriculaEstado, String nroFuncionarioEstado, String matriculaIpe, String matriculaEstadoAntiga, String matriculaIpe2,
+    public Associate(Long codigoAssociado, String matriculaEstado, String nroFuncionarioEstado, String matriculaIpe, String matriculaEstadoAntiga, String matriculaIpe2,
             String nroVinculo, String nroPensionista, String situacao, String nome, String cpf, String dtCadastro, String dtExclusao, String dtObito) {
         this.matriculaEstado = getNumber(matriculaEstado);
         this.nroFuncionarioEstado = getNumber(nroFuncionarioEstado);

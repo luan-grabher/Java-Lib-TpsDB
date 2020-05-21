@@ -1,11 +1,11 @@
 package tpsdb.Model.Entities;
 
-public class Processo {
+public class Lawsuit {
     private Long codigo;
     private Long associado;
     private Long advogado;
 
-    public Processo() {
+    public Lawsuit() {
     }
     
     public Long getCodigo() {

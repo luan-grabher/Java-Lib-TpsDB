@@ -2,9 +2,9 @@ package tpsdb.Model;
 
 import SimpleDotEnv.Env;
 import java.io.File;
-import tpsdb.Model.Entities.Associado;
-import tpsdb.Model.Entities.Contrato;
-import tpsdb.Model.Entities.Processo;
+import tpsdb.Model.Entities.Associate;
+import tpsdb.Model.Entities.Contract;
+import tpsdb.Model.Entities.Lawsuit;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import nl.cad.tpsparse.tps.record.TableDefinitionRecord;
 public class Tps_Model {
 
     private static final String tpsFolder = Env.get("tpsFolder");
-    private static final List<Associado> associados = new ArrayList<>();
-    private static final List<Contrato> contratos = new ArrayList<>();
-    private static final List<Processo> processos = new ArrayList<>();
+    private static final List<Associate> associates = new ArrayList<>();
+    private static final List<Contract> contracts = new ArrayList<>();
+    private static final List<Lawsuit> lawsuits = new ArrayList<>();
 
     private static List<List<Object>> getTableData(String tableName) {
         List<List<Object>> returned = new ArrayList<>();
@@ -57,16 +57,16 @@ public class Tps_Model {
         return fieldList;
     }
 
-    public static void setContratos() {
+    public static void setContracts() {
         try {
-            contratos.clear();
+            contracts.clear();
             
             String tableName = "ASSEMPRE";
 
             List<List<Object>> rows = getTableData(tableName);
             for (List<Object> row : rows) {
                 try {
-                    Contrato contrato = new Contrato();
+                    Contract contrato = new Contract();
                     contrato.setAssociadoCodigo(Long.valueOf(row.get(0).toString().replaceAll("[^0-9]", "")));
                     contrato.setNumeroProposta(Long.valueOf(row.get(2).toString().replaceAll("[^0-9]", "")));;
                     contrato.setDataProposta(getCalendarFromTpsDate(Integer.valueOf(row.get(3).toString().replaceAll("[^0-9]", ""))));
@@ -79,7 +79,7 @@ public class Tps_Model {
                     contrato.setDataVencimentoRefinanciamento(getCalendarFromTpsDate(Integer.valueOf(row.get(10).toString().replaceAll("[^0-9]", ""))));
                     contrato.setContratoRecebido(row.get(7).toString());
 
-                    contratos.add(contrato);
+                    contracts.add(contrato);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -89,15 +89,15 @@ public class Tps_Model {
         }
     }
 
-    public static void setAssociados() {
+    public static void serAssociates() {
         try {
-            associados.clear();
+            associates.clear();
             String tableName = "Associad";
 
             List<List<Object>> rows = getTableData(tableName);
             for (List<Object> row : rows) {
                 try {
-                    Associado associado = new Associado(
+                    Associate associado = new Associate(
                             Long.valueOf(row.get(0).toString()),
                             row.get(132).toString(), //MAT ESTADO
                             row.get(3).toString(), //FUNCIONARIO ESTADO
@@ -121,7 +121,7 @@ public class Tps_Model {
                     
                     associado.setDtNascimento(dateFormat.format(dataNascimento.getTime()));
 
-                    associados.add(associado);
+                    associates.add(associado);
                 } catch (Exception e) {
                 }
             }
@@ -129,21 +129,21 @@ public class Tps_Model {
         }
     }
 
-    public static void setProcessos() {
+    public static void setLawsuits() {
         try {
-            processos.clear();
+            lawsuits.clear();
             String tableName = "PROCESSO";
 
             List<List<Object>> rows = getTableData(tableName);
             for (List<Object> row : rows) {
                 try {
-                    Processo processo = new Processo();
+                    Lawsuit processo = new Lawsuit();
 
                     processo.setCodigo(Long.valueOf(row.get(0).toString()));
                     processo.setAssociado(Long.valueOf(row.get(3).toString()));
                     processo.setAdvogado(Long.valueOf(row.get(4).toString()));
 
-                    processos.add(processo);
+                    lawsuits.add(processo);
                 } catch (Exception e) {
                 }
             }
@@ -151,7 +151,7 @@ public class Tps_Model {
         }
     }
 
-    public static Associado getAssociado(Long matricula, Long vinculo, Long pensionista) {
+    public static Associate getAssociate(Long matricula, Long vinculo, Long pensionista) {
         try {
             Long m = matricula;
             Long v = vinculo;
@@ -160,9 +160,9 @@ public class Tps_Model {
             //try{ m = matricula != 0? matricula.toString():"";}catch(Exception e){}
             //try{ v = vinculo != 0? vinculo.toString():"";}catch(Exception e){}
             //try{ p = pensionista != 0? pensionista.toString():"";}catch(Exception e){}
-            for (int i = 0; i < associados.size(); i++) {
+            for (int i = 0; i < associates.size(); i++) {
 
-                Associado a = associados.get(i);
+                Associate a = associates.get(i);
                 if ((a.getMatriculaEstado().equals(m) | a.getNroFuncionarioEstado().equals(m)
                         | a.getMatriculaIpe().equals(m) | a.getMatriculaIpe2().equals(m)
                         | a.getMatriculaEstadoAntiga().equals(m))
@@ -171,17 +171,17 @@ public class Tps_Model {
                     return a;
                 }
             }
-            return new Associado(Long.valueOf("0"), matricula.toString(), "", "", "", "", "", "", "", "", "", "", "", "");
+            return new Associate(Long.valueOf("0"), matricula.toString(), "", "", "", "", "", "", "", "", "", "", "", "");
         } catch (Exception e) {
-            return new Associado(Long.valueOf("0"), matricula.toString(), "", "", "", "", "", "", "", "", "", "", "", "");
+            return new Associate(Long.valueOf("0"), matricula.toString(), "", "", "", "", "", "", "", "", "", "", "", "");
         }
 
     }
 
-    public static Contrato getContrato(Long numeroProposta) {
-        Contrato proposta = new Contrato();
+    public static Contract getContract(Long numeroProposta) {
+        Contract proposta = new Contract();
         try {
-            for (Contrato contrato : contratos) {
+            for (Contract contrato : contracts) {
                 if (contrato.getNumeroProposta() == numeroProposta) {
 
                 }
@@ -200,16 +200,16 @@ public class Tps_Model {
         return calendar;
     }
 
-    public static List<Associado> getAssociados() {
-        return associados;
+    public static List<Associate> getAssociates() {
+        return associates;
     }
 
-    public static List<Contrato> getContratos() {
-        return contratos;
+    public static List<Contract> getContracts() {
+        return contracts;
     }
 
-    public static List<Processo> getProcessos() {
-        return processos;
+    public static List<Lawsuit> getLawsuits() {
+        return lawsuits;
     }
 
 }

@@ -3,7 +3,7 @@ package tpsdb.Model.Entities;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class Contrato{
+public class Contract{
     private long associadoCodigo;
     private long numeroProposta;
     private Calendar dataProposta;
@@ -16,10 +16,10 @@ public class Contrato{
     private Calendar dataVencimentoRefinanciamento;
     private String contratoRecebido;
 
-    public Contrato() {
+    public Contract() {
     }
     
-    public Contrato(long associadoCodigo, long numeroProposta, Calendar dataProposta, BigDecimal valorFinanciado, Integer qtdParcelas, BigDecimal valorParcela, Calendar primeiroVencimento, Calendar ultimoVencimento, Calendar encerramento, Calendar dataVencimentoRefinanciamento, String contratoRecebido) {
+    public Contract(long associadoCodigo, long numeroProposta, Calendar dataProposta, BigDecimal valorFinanciado, Integer qtdParcelas, BigDecimal valorParcela, Calendar primeiroVencimento, Calendar ultimoVencimento, Calendar encerramento, Calendar dataVencimentoRefinanciamento, String contratoRecebido) {
         this.associadoCodigo = associadoCodigo;
         this.numeroProposta = numeroProposta;
         this.dataProposta = dataProposta;
