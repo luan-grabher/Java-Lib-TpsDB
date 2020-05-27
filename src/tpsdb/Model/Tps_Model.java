@@ -14,6 +14,7 @@ import java.util.Map;
 import nl.cad.tpsparse.tps.TpsFile;
 import nl.cad.tpsparse.tps.record.FieldDefinitionRecord;
 import nl.cad.tpsparse.tps.record.TableDefinitionRecord;
+import tpsdb.Model.Entities.Lawyer;
 
 public class Tps_Model {
 
@@ -21,6 +22,7 @@ public class Tps_Model {
     private static final List<Associate> associates = new ArrayList<>();
     private static final List<Contract> contracts = new ArrayList<>();
     private static final List<Lawsuit> lawsuits = new ArrayList<>();
+    private static final List<Lawyer> lawyers = new ArrayList<>();
 
     private static List<List<Object>> getTableData(String tableName) {
         List<List<Object>> returned = new ArrayList<>();
@@ -40,7 +42,7 @@ public class Tps_Model {
                 });
             });
         } catch (Exception e) {
-            
+
         }
 
         return returned;
@@ -60,7 +62,7 @@ public class Tps_Model {
     public static void setContracts() {
         try {
             contracts.clear();
-            
+
             String tableName = "ASSEMPRE";
 
             List<List<Object>> rows = getTableData(tableName);
@@ -115,10 +117,10 @@ public class Tps_Model {
                     );
 
                     associado.setRg(row.get(19).toString().replaceAll("[^0-9]", ""));
-                    
+
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     Calendar dataNascimento = getCalendarFromTpsDate(Integer.valueOf(row.get(13).toString()));
-                    
+
                     associado.setDtNascimento(dateFormat.format(dataNascimento.getTime()));
 
                     associates.add(associado);
@@ -144,6 +146,26 @@ public class Tps_Model {
                     processo.setAdvogado(Long.valueOf(row.get(4).toString()));
 
                     lawsuits.add(processo);
+                } catch (Exception e) {
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public static void setLawyers() {
+        try {
+            lawsuits.clear();
+            String tableName = "advogado";
+
+            List<List<Object>> rows = getTableData(tableName);
+            for (List<Object> row : rows) {
+                try {
+                    Lawyer lawyer = new Lawyer();
+
+                    lawyer.setName(row.get(0).toString());
+
+                    lawyers.add(lawyer);
                 } catch (Exception e) {
                 }
             }
@@ -210,6 +232,10 @@ public class Tps_Model {
 
     public static List<Lawsuit> getLawsuits() {
         return lawsuits;
+    }
+
+    public static List<Lawyer> getLawyers() {
+        return lawyers;
     }
 
 }
