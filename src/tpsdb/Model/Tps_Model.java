@@ -163,8 +163,8 @@ public class Tps_Model {
                 try {
                     Lawyer lawyer = new Lawyer();
 
-                    lawyer.setName(row.get(0).toString());
-                    lawyer.setCode(Integer.valueOf(row.get(1).toString()));
+                    lawyer.setName(row.get(2).toString());
+                    lawyer.setCode(Integer.valueOf(row.get(0).toString()));
 
                     lawyers.add(lawyer);
                 } catch (Exception e) {
