@@ -91,7 +91,7 @@ public class Tps_Model {
         }
     }
 
-    public static void serAssociates() {
+    public static void setAssociates() {
         try {
             associates.clear();
             String tableName = "Associad";
