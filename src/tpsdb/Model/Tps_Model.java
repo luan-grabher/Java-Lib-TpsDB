@@ -202,16 +202,15 @@ public class Tps_Model {
     }
 
     public static Contract getContract(Long numeroProposta) {
-        Contract proposta = new Contract();
         try {
             for (Contract contrato : contracts) {
                 if (contrato.getNumeroProposta() == numeroProposta) {
-
+                    return contrato;
                 }
             }
         } catch (Exception e) {
         }
-        return proposta;
+        return new Contract();
     }
 
     private static Calendar getCalendarFromTpsDate(Integer tpsDateInteger) {
